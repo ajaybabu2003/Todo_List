@@ -1,0 +1,47 @@
+<!DOCTYPE html>  <link rel="stylesheet" href="todo.css">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+  <link rel="stylesheet" href="todo.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <script src="todo.js"></script>
+
+
+</head>
+<body>
+  <div class="container">
+    <h1>Todo List</h1>
+   <input type="text" id="taskInput" placeholder="Enter a task...">
+
+    <button id="addButton">Add Task</button>
+    <ul id="taskList"></ul>
+  </div>
+  
+ 
+<script>
+$(document).ready(function () {
+  $('#addButton').on('click', function () {
+    const taskText = $('#taskInput').val().trim();
+    console.log('Task Text:', taskText);
+
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:3000/addTask',
+      contentType: 'application/json',
+      data: JSON.stringify({ text: taskText }),
+      success: function (response) {
+        console.log(response.message);
+        // You can add more logic here if needed
+      },
+      error: function (error) {
+        console.error('Error adding task:', error);
+      },
+    });
+  });
+});
+
+  </script>
+</body>
+</html>
